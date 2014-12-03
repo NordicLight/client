@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
  angular.module('clientApp')
- .controller('MapCtrl', function ($scope,$http,$rootScope,configFactory) {
+ .controller('MapCtrl',['$scope','$http','$rootScope','configFactory', function ($scope,$http,$rootScope,configFactory) {
 
     /*if($rootScope.user.length === 0){
       return;
@@ -95,4 +95,4 @@
   		window.alert("click");
   	};
 
-  });
+  }]);

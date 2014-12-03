@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('clientApp')
-.factory("dateFactory", function() {
+.factory("dateFactory",[ function() {
 
 	var factory = {};
 
@@ -103,4 +103,4 @@ angular.module('clientApp')
 	};
 
 	return factory;
-});
+}]);

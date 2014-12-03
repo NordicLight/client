@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('MainCtrl', function ($scope) {
+  .controller('MainCtrl',['$scope', function ($scope) {
 
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
@@ -16,4 +16,4 @@ angular.module('clientApp')
       'Karma'
     ];
     
-  });
+  }]);

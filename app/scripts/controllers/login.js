@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
  angular.module('clientApp')
- .controller('LoginCtrl', function ($scope,$http,$location,$rootScope,flash,configFactory) {
+ .controller('LoginCtrl',['$scope','$http','$location','$rootScope','flash','configFactory', function ($scope,$http,$location,$rootScope,flash,configFactory) {
 
    var retPW;
 
@@ -56,4 +56,4 @@
 
       $scope.reset();
 
-    });
+    }]);

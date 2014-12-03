@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
  angular.module('clientApp')
- .controller('CreateaccountCtrl', function ($scope,$http,$location,$rootScope,flash,configFactory) {
+ .controller('CreateaccountCtrl',['$scope','$http','$location','$rootScope','flash','configFactory', function ($scope,$http,$location,$rootScope,flash,configFactory) {
 
  	var today,year,month,day,date,obj;
  	$scope.flash = flash;
@@ -52,4 +52,4 @@
 
       };
 
-  });
+  }]);

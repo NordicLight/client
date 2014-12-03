@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('clientApp')
 	.directive('pwCheck', [function () {
 	return {

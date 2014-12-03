@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
  angular.module('clientApp')
- .controller('ActivityCtrl', function ($scope,$rootScope,activityFactory,dateFactory) {
+ .controller('ActivityCtrl',['$scope','$rootScope','activityFactory','dateFactory', function ($scope,$rootScope,activityFactory,dateFactory) {
 
     //TODO
     /*if($rootScope.user.length == 0){
@@ -168,4 +168,4 @@ function chartClick(clickDate){
       }).error(function(data){
       });*/
 
-});
+}]);

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('flash', [])
-.factory("flash", function($rootScope) {
+.factory("flash",['$rootScope', function($rootScope) {
 
     var queue = [];
     var currentMessage = "";
@@ -29,4 +29,4 @@ angular.module('flash', [])
     }
 
   };
-});
+}]);

@@ -8,9 +8,9 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('LogoutCtrl', function ($scope,$location,$rootScope) {
+  .controller('LogoutCtrl',['$scope','$location','$rootScope', function ($scope,$location,$rootScope) {
     
     $rootScope.logedin = false;
     $location.path('/login');
 
-  });
+  }]);

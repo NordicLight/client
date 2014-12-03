@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('AppCtrl', function ($scope,$rootScope,activityFactory,appFactory,chartFactory,dateFactory) {
+  .controller('AppCtrl',['$scope','$rootScope','activityFactory','appFactory','chartFactory','dateFactory', function ($scope,$rootScope,activityFactory,appFactory,chartFactory,dateFactory) {
  
     //TODO
     /*if($rootScope.user.length == 0){
@@ -138,4 +138,4 @@ angular.module('clientApp')
   };
 
 
-  });
+  }]);
