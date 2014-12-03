@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
  angular.module('clientApp')
- .controller('CreateaccountCtrl', function ($scope,$http,$location,$rootScope,flash) {
+ .controller('CreateaccountCtrl', function ($scope,$http,$location,$rootScope,flash,configFactory) {
 
  	var today,year,month,day,date,obj;
  	$scope.flash = flash;
@@ -33,7 +33,8 @@
 
  			//TODO - check that the user is not existing
 
- 			$http.post('http://localhost:1337/user',obj).
+ 			var url = configFactory.getBaseURL() + 'user';
+ 			$http.post(url,obj).
  				success(function(data, status, headers, config) {
  					$rootScope.user = $scope.user.email;
  					$location.path('/activity');
