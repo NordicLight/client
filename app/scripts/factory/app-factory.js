@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('clientApp')
-.factory("appFactory", function($http,dateFactory) {
+.factory("appFactory", function($http,dateFactory,configFactory) {
 
 	var factory = {};
 
@@ -9,16 +9,15 @@ angular.module('clientApp')
     * Factory External Methods
     ********************************************/
 
-	factory.test = function() {
-		return "hej";
-	};
-
 	factory.getApps = function (callback) {
 
 		var searchDate;
         searchDate = dateFactory.getSearchDateInt(14);
 
-       $http.get('http://localhost:1337/app/getitems?timeid='+ searchDate).success(callback);
+        var url = configFactory.getBaseURL() + 'app/getitems?timeid=';
+
+        //$http.get('http://localhost:1337/app/getitems?timeid='+ searchDate).success(callback);
+        $http.get(url + searchDate).success(callback);
 	};
 
 	return factory;

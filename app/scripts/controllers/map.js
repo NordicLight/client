@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
  angular.module('clientApp')
- .controller('MapCtrl', function ($scope,$http,$rootScope) {
+ .controller('MapCtrl', function ($scope,$http,$rootScope,configFactory) {
 
     /*if($rootScope.user.length === 0){
       return;
@@ -50,15 +50,18 @@
   		var lon;
   		var obj;
   		var name;
+      var url;
 
       //On load - Extract unique devices for navbar
-      $http.get("http://localhost:1337/activity/getdevices").success(function(data) {
+      url = configFactory.getBaseURL() + 'activity/getdevices';
+      $http.get(url).success(function(data) {
       	$scope.deviceData=data;
       }).error(function(data){
       });
 
       //on load - extract locations for all devices
-      $http.get("http://localhost:1337/map").success(function(data) {
+      url = configFactory.getBaseURL() + 'map';
+      $http.get(url).success(function(data) {
       	$scope.posData=data;
 
       	//Show first one

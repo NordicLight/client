@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
  angular.module('clientApp')
- .controller('LoginCtrl', function ($scope,$http,$location,$rootScope,flash) {
+ .controller('LoginCtrl', function ($scope,$http,$location,$rootScope,flash,configFactory) {
 
    var retPW;
 
@@ -19,8 +19,10 @@
 
    $scope.login = function() {
 
-      	// Simple GET request example :
-        $http.get('http://localhost:1337/user?user=' + $scope.user.email).
+        var url;
+
+        url = configFactory.getBaseURL() + 'user?user=';
+        $http.get(url + $scope.user.email).
         success(function(data, status, headers, config) {
 
          if(data.length >0) {
@@ -33,7 +35,7 @@
   						//TODO - add better user feedback
  						//window.alert("Incorrect password!");
             flash.setMessage('Incorrect password!');
-          };
+          }
 
         }else{
   				//TODO - add better user feedback
