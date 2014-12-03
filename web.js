@@ -1,3 +1,5 @@
+'use strict';
+
 //http://www.sitepoint.com/deploying-yeomanangular-app-heroku/
 var gzippo = require('gzippo');
 var express = require('express');
