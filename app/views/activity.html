@@ -26,6 +26,7 @@
  				<div class="navbar-collapse collapse sidebar-navbar-collapse">
  					<ul class="nav navbar-nav" ng-repeat="device in deviceData">
 
+ 						<li class="active">Devices</li>
  						<li class="active" ng-click="viewActivity($index)"><a nohref="nohref">{{device}}</a></li>
  						<!-- <li><a href="#">Menu Item 2</a></li>-->
 
@@ -54,6 +55,8 @@
 	
 
 		<div class="col-sm-12">
+			<br>
+			<br>
 			<!--Table -->
 			<div class="table-responsive">
 				<table class="table table-striped table-bordered">

@@ -36,29 +36,37 @@ angular.module('clientApp')
     }
 
     function durToMin(len){
-      len = len/60; //get hours
-      len = len.toFixed(2);
-      len = parseFloat(len);
-      return len;
-  }
+    	len = len/60; 
+    	len = len.toFixed(0);
+    	len = parseFloat(len);
+    	return len;
+    }
 
-  function removeObjects(data,timeid){
+    function removeObjects(data,timeid){
 
-  	var i;
-  	var apps = [];
+    	var i;
+    	var apps = [];
 
-  	for(i=0;i<data.length;i++){
-  		if(parseInt(timeid) === data[i].timeid){
-  			apps.push(data[i]);
-  		}
-  	}
+    	for(i=0;i<data.length;i++){
+    		if(parseInt(timeid) === data[i].timeid){
+    			apps.push(data[i]);
+    		}
+    	}
 
-  	return apps;
-  }
+    	return apps;
+    }
+
+    function mycomparator(a,b) {
+    	return parseInt(b.runtime) - parseInt(a.runtime);
+    }
 
 	/*******************************************
     * Factory External Methods
     ********************************************/
+
+     factory.sortArray = function (list) {
+    	return list.sort(mycomparator);
+    };
 
     factory.getAppTableData = function () {
     	return appList;
@@ -99,7 +107,8 @@ angular.module('clientApp')
 				for(t=0;t<data.length;t++){
 					jasonTwo = data[t];
 					if(app.name.valueOf() === jasonTwo.name.valueOf()){
-						app.runtime = app.runtime + parseInt(jasonTwo.runtime);
+						dur = durToMin(parseInt(jasonTwo.runtime));
+						app.runtime = app.runtime + dur;
 					}
 				}
 
@@ -109,6 +118,9 @@ angular.module('clientApp')
 
 		}
 
+		//Sort applist
+		appList.sort(mycomparator);
+
 		//Construct the graph data		
 		for(i=0;i<appList.length;i++){
 			app = appList[i];
@@ -117,7 +129,7 @@ angular.module('clientApp')
 			graphData.series.push(app.name);
 
 			//Add runtime to data
-			dur = durToMin(app.runtime);
+			dur = parseInt(app.runtime);
 			//name = app.name + ' ' + dur + ' min';
 			graphData.data.push({x:app.name,y:[dur]}); 
 		}

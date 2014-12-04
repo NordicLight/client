@@ -109,13 +109,17 @@ angular.module('clientApp')
         array.push($scope.savedData[i]);
       }
     }
-    $scope.tableDataArray = array;
+    //array = chartFactory.sortArray(array);
+    //$scope.tableDataArray = array;
 
     //Update pie - TODO is not working with year wrap over
 
     clickDate = dateFactory.getYearString() + clickDate;
     var pieData = chartFactory.getAppChartData($scope.savedData,clickDate);
     $scope.chartDataPie = pieData;
+
+    //Get Table data
+    $scope.tableDataArray = chartFactory.getAppTableData();
   };
 
     /*******************************************

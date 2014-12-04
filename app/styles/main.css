@@ -49,6 +49,14 @@ width: 800px;
   padding: 14px 24px;
 }
 
+/* Main marketing message and sign up button */
+.jumbotronmain {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+  width: 50%;
+  margin: 0 auto; 
+}
+
 /* Supporting marketing content */
 .marketing {
   margin: 40px 0;

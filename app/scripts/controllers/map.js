@@ -16,6 +16,7 @@
 
  	$scope.deviceData="";
  	$scope.posData="";
+  $scope.timestamp="";
 
  	//Define map object
  	  //http://www.honobono-life.info/wpeng/google-maps-for-angularjs-marker-eventv2-0-7/
@@ -71,6 +72,8 @@
       		lat = obj.lat;
       		lon = obj.lon;
       		name = obj.devicename;
+
+           $scope.timestamp=obj.timestamp;
 
       		var array = [];
       		array.push({
