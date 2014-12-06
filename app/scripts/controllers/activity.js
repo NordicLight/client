@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
  angular.module('clientApp')
- .controller('ActivityCtrl',['$scope','$rootScope','activityFactory','dateFactory', function ($scope,$rootScope,activityFactory,dateFactory) {
+ .controller('ActivityCtrl',['$scope','$rootScope','activityFactory','dateFactory','ngProgress', function ($scope,$rootScope,activityFactory,dateFactory,ngProgress) {
 
     //TODO
     /*if($rootScope.user.length == 0){
@@ -28,6 +28,9 @@
 
     //called on load
     function onload() {
+
+      ngProgress.stop();
+      ngProgress.hide();
 
       activityFactory.getDeviceData(function(data) {
         $scope.deviceData = data; 

@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
  angular.module('clientApp')
- .controller('LoginCtrl',['$scope','$http','$location','$rootScope','flash','configFactory', function ($scope,$http,$location,$rootScope,flash,configFactory) {
+ .controller('LoginCtrl',['$scope','$http','$location','$rootScope','flash','configFactory','ngProgress', function ($scope,$http,$location,$rootScope,flash,configFactory,ngProgress) {
 
    var retPW;
 
@@ -20,6 +20,8 @@
    $scope.login = function() {
 
         var url;
+
+        ngProgress.start();
 
         url = configFactory.getBaseURL() + 'user?user=';
         $http.get(url + $scope.user.email).

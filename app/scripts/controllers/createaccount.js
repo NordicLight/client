@@ -36,6 +36,10 @@
  			var url = configFactory.getBaseURL() + 'user';
  			$http.post(url,obj).
  				success(function(data, status, headers, config) {
+
+ 					// This seems to take, on timt to time, some time. Use progress bar. will be tunned off in activity
+            		ngProgress.start();
+
  					$rootScope.user = $scope.user.email;
  					$location.path('/activity');
 				}).

@@ -13,6 +13,7 @@ angular
     'angularCharts',
     'uiGmapgoogle-maps',
     'flash',
+    'ngProgress',
     'ngAnimate',
     'ngAria',
     'ngCookies',
