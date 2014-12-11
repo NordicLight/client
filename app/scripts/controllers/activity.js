@@ -29,8 +29,7 @@
     //called on load
     function onload() {
 
-      ngProgress.stop();
-      ngProgress.hide();
+      stopProgress();
 
       activityFactory.getDeviceData(function(data) {
         $scope.deviceData = data; 
@@ -39,9 +38,9 @@
       //set up callback
       activityFactory.registerUpdateCallback(function(){
 
-          var today = new Date();
-          var month = today.getMonth()+1;
-          var day = today.getDate();
+        var today = new Date();
+        var month = today.getMonth()+1;
+        var day = today.getDate();
 
           //extract data
           $scope.chartdata = activityFactory.getChartData();
@@ -59,6 +58,12 @@
 
     }
     onload();
+
+    function stopProgress() {
+        //Stop progressbar - could have been initiated from login or create account
+        ngProgress.stop();
+        ngProgress.hide();
+    }
 
     /*******************************************
     * Chart - https://github.com/chinmaymk/angular-charts/blob/master/README.md

@@ -15,5 +15,7 @@ angular.module('clientApp')
       'AngularJS',
       'Karma'
     ];
+
+    $scope.name = 'johan';
     
   }]);

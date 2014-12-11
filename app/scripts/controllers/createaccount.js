@@ -33,27 +33,35 @@
 
  			//TODO - check that the user is not existing
 
+ 			// This seems to take, on timt to time, some time. Use progress bar. will be tunned off in activity
+            ngProgress.start();
+
  			var url = configFactory.getBaseURL() + 'user';
  			$http.post(url,obj).
  				success(function(data, status, headers, config) {
 
- 					// This seems to take, on timt to time, some time. Use progress bar. will be tunned off in activity
-            		ngProgress.start();
-
+ 					$rootScope.logedin = true;
  					$rootScope.user = $scope.user.email;
  					$location.path('/activity');
 				}).
  				error(function(data, status, headers, config) {
  					flash.setMessage('Error could not contact server!');
+ 					stopProgress();
 				}
 			);
 
- 			$rootScope.logedin = true;
- 			$location.path('/activity');
+ 			//$rootScope.logedin = true;
+ 			//$location.path('/activity');
  		}else {
       		//TODO - add error user feedback
       	};
 
       };
+
+      function stopProgress() {
+        //Stop progressbar - could have been initiated from login or create account
+        ngProgress.stop();
+        ngProgress.hide();
+      }
 
   }]);

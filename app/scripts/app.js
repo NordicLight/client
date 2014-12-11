@@ -53,6 +53,10 @@ angular
         templateUrl: 'views/app.html',
         controller: 'AppCtrl'
       })
+      .when('/chat', {
+        templateUrl: 'views/chat.html',
+        controller: 'ChatCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

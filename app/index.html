@@ -69,9 +69,16 @@
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/lodash/dist/lodash.compat.js"></script>
     <script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
+    <script src="bower_components/sails.io.js/dist/sails.io.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
+     <!-- TODO: Add here your backend API URL without trailing slashes -->
+     <script>
+            io.sails.useCORSRouteToGetCookie = false;
+            io.sails.url = 'http://localhost:1337';
+     </script>
+       
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/angular-charts.min.js"></script>
     <script src="scripts/app.js"></script>
@@ -90,6 +97,8 @@
     <script src="scripts/factory/date-factory.js"></script>
     <script src="scripts/factory/config-factory.js"></script>
     <script src="scripts/external/ngProgress.js"></script>
+    <script src="scripts/controllers/chat.js"></script>
+    <script src="scripts/factory/socket-factory.js"></script>
     <!-- endbuild -->
 
   </body>

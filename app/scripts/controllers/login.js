@@ -19,8 +19,9 @@
 
    $scope.login = function() {
 
-        var url;
+    var url;
 
+        // This seems to take, on timt to time, some time. Use progress bar. will be tunned off in activity
         ngProgress.start();
 
         url = configFactory.getBaseURL() + 'user?user=';
@@ -31,24 +32,28 @@
 
            retPW = data[0].password;
            if(retPW == $scope.user.password) {
+
             $rootScope.user = $scope.user.email;
             $location.path('/activity');
           }else{
   						//TODO - add better user feedback
  						//window.alert("Incorrect password!");
             flash.setMessage('Incorrect password!');
+            stopProgress();
           }
 
         }else{
   				//TODO - add better user feedback
          //window.alert("Failed to login!");
          flash.setMessage('Failed to login!');
+         stopProgress();
        };
 
      }).
         error(function(data, status, headers, config) {
   			//TODO - add user feedback
         window.alert("Error!");
+        stopProgress();
       });
       };
 
@@ -57,5 +62,11 @@
       };
 
       $scope.reset();
+
+      function stopProgress() {
+        //Stop progressbar - could have been initiated from login or create account
+        ngProgress.stop();
+        ngProgress.hide();
+      }
 
     }]);
