@@ -75,7 +75,7 @@ angular.module('clientApp')
 			$scope.$digest();
 
 			//Trigger a resourse load for client to detect button press
-			$http.get($scope.baseUrl+'chat')
+			$http.get($scope.baseUrl+'screenshot')
 				.success(function(success_data){
 				});
 		}
