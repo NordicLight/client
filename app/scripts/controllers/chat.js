@@ -43,10 +43,10 @@ angular.module('clientApp')
 	$scope.getAllchat = function(){
 
 		//start listen to socket
-		io.socket.get($scope.baseUrl+'/chat/addconv');
+		io.socket.get($scope.baseUrl+'chat/addconv');
 
 		//Request data
-		$http.get($scope.baseUrl+'/chat')
+		$http.get($scope.baseUrl+'chat')
 		.success(function(success_data){
 
 			var obj;
@@ -80,7 +80,7 @@ angular.module('clientApp')
 	$scope.sendMsg = function(){
 		$log.info($scope.chatMessage);
 		//io.socket.post($scope.baseUrl+'/chat/addconv/',{user:$rootScope.user,message: $scope.chatMessage});
-		io.socket.post($scope.baseUrl+'/chat/addconv/',{user:'testuser',message: $scope.chatMessage});
+		io.socket.post($scope.baseUrl+'chat/addconv/',{user:'testuser',message: $scope.chatMessage});
 		$scope.chatMessage = "";
 	};
 }]);
