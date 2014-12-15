@@ -73,6 +73,11 @@ angular.module('clientApp')
 			$log.info(obj)
 			$scope.chatList.push(obj.data);
 			$scope.$digest();
+
+			//Trigger a resourse load for client to detect button press
+			$http.get($scope.baseUrl+'chat')
+				.success(function(success_data){
+				});
 		}
 
 	});
