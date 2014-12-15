@@ -74,7 +74,11 @@ angular.module('clientApp')
 
     factory.getDeviceData = function (callback) {
       var url = configFactory.getBaseURL() + 'activity/getdevices';
-    	//$http.get('http://localhost:1337/activity/getdevices').success(callback);
+      $http.get(url).success(callback);
+    };
+
+    factory.getOnlineData = function (callback,user) {
+      var url = configFactory.getBaseURL() + 'online/get?deviceid=' + user;
       $http.get(url).success(callback);
     };
 

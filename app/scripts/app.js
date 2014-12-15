@@ -57,6 +57,10 @@ angular
         templateUrl: 'views/chat.html',
         controller: 'ChatCtrl'
       })
+      .when('/screenshot', {
+        templateUrl: 'views/chat.html',
+        controller: 'ChatCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

@@ -8,17 +8,26 @@
  * Controller of the clientApp
  */
  angular.module('clientApp')
- .controller('MapCtrl',['$scope','$http','$rootScope','configFactory', function ($scope,$http,$rootScope,configFactory) {
+ .controller('MapCtrl',['$scope','$http','$rootScope','configFactory','activityFactory', function ($scope,$http,$rootScope,configFactory,activityFactory) {
 
     /*if($rootScope.user.length === 0){
       return;
     }*/
 
- 	$scope.deviceData="";
- 	$scope.posData="";
-  $scope.timestamp="";
+    /*******************************************
+    * Variables
+    ********************************************/
+    $scope.deviceDataArray=[];      //Data holds all device navbar object data
+    $scope.deviceData="";
+    $scope.posData="";
+   
+    //Device status
+    $scope.onlinestatus;            //Online or offline
+    $scope.devicename;              //Name of device
+    $scope.onlinetime;              //When was the device seen
+    $scope.customStyle = {};        //Color for text
 
- 	//Define map object
+ 	  //Define map object
  	  //http://www.honobono-life.info/wpeng/google-maps-for-angularjs-marker-eventv2-0-7/
  	  google.maps.visualRefresh = true;
  	  angular.extend($scope, {
@@ -44,20 +53,41 @@
  	  	}
  	  });
 
-  	//called on load
-  	function onload() {
+    /*******************************************
+    * Init
+    ********************************************/
 
-  		var lat;
-  		var lon;
-  		var obj;
-  		var name;
+    function onload() {
+
+      var lat;
+      var lon;
+      var obj;
+      var name;
       var url;
 
-      //On load - Extract unique devices for navbar
-      url = configFactory.getBaseURL() + 'activity/getdevices';
-      $http.get(url).success(function(data) {
-      	$scope.deviceData=data;
-      }).error(function(data){
+        //TODO - handle more then one device
+        activityFactory.getDeviceData(function(data) {
+          var deviceid = data.deviceid;
+          var temp = data.devicename;
+          $scope.devicename = temp;
+          $scope.deviceData = {"first":temp};
+          $scope.deviceDataArray.push(data);
+
+        //Get online status
+        activityFactory.getOnlineData(function(onlinedata) {
+
+          if(onlinedata == null || onlinedata.length === 0){
+            $scope.onlinestatus = '?';
+            $scope.onlinetime = '?';
+          }else{
+           $scope.onlinestatus = onlinedata[0].status;
+           $scope.onlinetime = onlinedata[0].timestamp;
+           if($scope.onlinestatus === 'online'){
+             turnGreen();
+           } 
+         }
+       },deviceid);
+
       });
 
       //on load - extract locations for all devices
@@ -73,29 +103,39 @@
       		lon = obj.lon;
       		name = obj.devicename;
 
-           $scope.timestamp=obj.timestamp;
+         var array = [];
+         array.push({
+           id:1,
+           latitude: lat,
+           longitude: lon,
+           showWindow: true,
+           title: name
+         });
+         $scope.map.markers = array;
+         $scope.map.center = {latitude: lat,longitude: lon};
+       }
 
-      		var array = [];
-      		array.push({
-      			id:1,
-      			latitude: lat,
-      			longitude: lon,
-      			showWindow: true,
-      			title: name
-      		});
-      		$scope.map.markers = array;
-      		$scope.map.center = {latitude: lat,longitude: lon};
-      	}
+     }).error(function(data){
+     });
 
-      }).error(function(data){
-      });
-
-  };
-  onload();
+   };
+   onload();
 
   	//Load table  
   	$scope.onDeviceClick =  function click(e) {
   		window.alert("click");
   	};
 
-  }]);
+/*******************************************
+* Chaning color of device status
+********************************************/
+
+function turnGreen (){
+  $scope.customStyle.style = {'color':'green'};
+}
+
+function turnBlack (){
+  $scope.customStyle.style = {'color':'black'};
+}
+
+}]);

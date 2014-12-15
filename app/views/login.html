@@ -7,9 +7,11 @@
 
 <!--TODO - http://www.ng-newsletter.com/posts/validations.html!-->
 
-<div class="jumbotron">
 
-	  <form novalidate name="myForm">
+ <div class="container">
+    <div class="jumbotron">
+	  <form novalidate class="myForm" name="myForm">
+      
 	  		<h1>Welcome</h1>
              <!-- Error messages!-->
              <span class="alert" ng-show="flash.show()">
@@ -33,4 +35,5 @@
     		<a ng-href="/#/createaccount">add account</a>
     		<br/><br/>
   	  </form>
+    </div>
 </div>

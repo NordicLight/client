@@ -18,9 +18,16 @@ angular.module('clientApp')
     /*******************************************
     * Variables
     ********************************************/
+    $scope.deviceDataArray=[];      //Data holds all device navbar object data
     $scope.deviceData="";           //Data holds device navbar
     $scope.tableDataArray = [];     //Data holds table data
     $scope.savedData;               //Data is a backup of all chart data
+
+    //Device status
+    $scope.onlinestatus;            //Online or offline
+    $scope.devicename;              //Name of device
+    $scope.onlinetime;              //When was the device seen
+    $scope.customStyle = {};        //Color for text
 
     /*******************************************
     * Init
@@ -29,9 +36,29 @@ angular.module('clientApp')
     //called on load
     function onload() {
 
-      //device navbar data
+      //TODO - handle more then one device
       activityFactory.getDeviceData(function(data) {
-        $scope.deviceData = data; 
+        var deviceid = data.deviceid;
+        var temp = data.devicename;
+        $scope.devicename = temp;
+        $scope.deviceData = {"first":temp};
+        $scope.deviceDataArray.push(data);
+
+        //Get online status
+        activityFactory.getOnlineData(function(onlinedata) {
+
+          if(onlinedata == null || onlinedata.length === 0){
+            $scope.onlinestatus = '?';
+            $scope.onlinetime = '?';
+          }else{
+           $scope.onlinestatus = onlinedata[0].status;
+           $scope.onlinetime = onlinedata[0].timestamp;
+           if($scope.onlinestatus === 'online'){
+             turnGreen();
+           } 
+         }
+       },deviceid);
+
       });
 
       //set up callback
@@ -140,6 +167,18 @@ angular.module('clientApp')
       position: 'left'
     },
   };
+
+/*******************************************
+* Chaning color of device status
+********************************************/
+
+function turnGreen (){
+  $scope.customStyle.style = {'color':'green'};
+}
+
+function turnBlack (){
+  $scope.customStyle.style = {'color':'black'};
+}
 
 
   }]);

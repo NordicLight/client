@@ -18,9 +18,16 @@
     /*******************************************
     * Variables
     ********************************************/
-    $scope.deviceData="";           //Data holds device navbar
+    $scope.deviceDataArray=[];      //Data holds all device navbar object data
+    $scope.deviceData="";           //Data holds device navbar user information
     $scope.tableDataArray = [];     //Data holds table data
     $scope.savedData;               //Data is a backup of all chart data
+
+    //Device status
+    $scope.onlinestatus;            //Online or offline
+    $scope.devicename;              //Name of device
+    $scope.onlinetime;         //When was the device seen
+    $scope.customStyle = {};        //Color for text
 
     /*******************************************
     * Init
@@ -29,10 +36,33 @@
     //called on load
     function onload() {
 
+      //$scope.onlinestatus = 'Online';
+      //$scope.devicename = 'Johans Mac';   
       stopProgress();
 
+      //TODO - handle more then one device
       activityFactory.getDeviceData(function(data) {
-        $scope.deviceData = data; 
+        var deviceid = data.deviceid;
+        var temp = data.devicename;
+        $scope.devicename = temp;
+        $scope.deviceData = {"first":temp};
+        $scope.deviceDataArray.push(data);
+
+        //Get online status
+        activityFactory.getOnlineData(function(onlinedata) {
+
+          if(onlinedata == null || onlinedata.length === 0){
+            $scope.onlinestatus = '?';
+            $scope.onlinetime = '?';
+          }else{
+           $scope.onlinestatus = onlinedata[0].status;
+           $scope.onlinetime = onlinedata[0].timestamp;
+           if($scope.onlinestatus === 'online'){
+             turnGreen();
+           } 
+         }
+       },deviceid);
+
       });
 
       //set up callback
@@ -63,7 +93,7 @@
         //Stop progressbar - could have been initiated from login or create account
         ngProgress.stop();
         ngProgress.hide();
-    }
+      }
 
     /*******************************************
     * Chart - https://github.com/chinmaymk/angular-charts/blob/master/README.md
@@ -131,49 +161,16 @@ function chartClick(clickDate){
   $scope.tableDataArray = array;
 }
 
-    /*******************************************
-    * Backup
-    ********************************************/
+/*******************************************
+* Chaning color of device status
+********************************************/
 
-    //On load - Extract unique devices for navbar
-      /*$http.get("http://localhost:1337/activity/getdevices").success(function(data) {
-        $scope.deviceData=data;
-      }).error(function(data){
-      });*/
+function turnGreen (){
+  $scope.customStyle.style = {'color':'green'};
+}
 
-    //load on start
-    /*angular.element(document).ready(function(){
-      console.log("start");
-      $scope.addData();
-    });*/
-
-    //Button TESTING
-    /*$scope.loadData = function() {
-      $scope.textAreaData="Fetching data...";
-
-      $http.get("http://localhost:1337/activity").success(function(data) {
-        $scope.textAreaData = data;
-        $scope.savedData = data;
-        $scope.tableData=data;
-      }).error(function(data){
-      });
-};*/
-
-    //Load table  
-    /*function loadTextArea(e) {
-      $scope.textAreaData=$scope.tableDataArray[e];
-     
-    };
-    $scope.viewActivity = loadTextArea;*/
-
-      //On load - get all data from database
-     /* $http.get("http://localhost:1337/activity").success(function(data) {
-        $scope.textAreaData = data;
-        $scope.tableData=data;
-
-        extractData(data);
-
-      }).error(function(data){
-      });*/
+function turnBlack (){
+  $scope.customStyle.style = {'color':'black'};
+}
 
 }]);

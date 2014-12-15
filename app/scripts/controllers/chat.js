@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('clientApp')
-.controller('ChatCtrl',['$http','$log','$scope','$rootScope','activityFactory', function($http,$log,$scope,$rootScope,activityFactory){
+.controller('ChatCtrl',['$http','$log','$scope','$rootScope','activityFactory','configFactory', function($http,$log,$scope,$rootScope,activityFactory,configFactory){
 
 	 //TODO
     /*if($rootScope.user.length == 0){
@@ -37,8 +37,8 @@ angular.module('clientApp')
 
 	$scope.predicate = '-id';
 	$scope.reverse = false;
-	//$scope.baseUrl = 'http://sails-socket-maangalabs.herokuapp.com';
-	$scope.baseUrl = 'http://localhost:1337';
+	$scope.baseUrl = configFactory.getBaseURL();
+	//$scope.baseUrl = 'http://localhost:1337';
 	$scope.chatList =[];
 	$scope.getAllchat = function(){
 
@@ -52,9 +52,10 @@ angular.module('clientApp')
 			var obj;
 			for(var i=0;i<success_data.length;i++){
 				obj = success_data[i];
-				if(obj.user.valueOf() == $rootScope.user.valueOf()){
+				/*if(obj.user.valueOf() == $rootScope.user.valueOf()){
 					$scope.chatList.push(obj);
-				}	
+				}*/	
+				$scope.chatList.push(obj);
 			}
 
 			$log.info(success_data);
@@ -78,7 +79,8 @@ angular.module('clientApp')
 
 	$scope.sendMsg = function(){
 		$log.info($scope.chatMessage);
-		io.socket.post($scope.baseUrl+'/chat/addconv/',{user:$rootScope.user,message: $scope.chatMessage});
+		//io.socket.post($scope.baseUrl+'/chat/addconv/',{user:$rootScope.user,message: $scope.chatMessage});
+		io.socket.post($scope.baseUrl+'/chat/addconv/',{user:'testuser',message: $scope.chatMessage});
 		$scope.chatMessage = "";
 	};
 }]);
