@@ -103,10 +103,10 @@ angular.module('clientApp')
 			$scope.chatList.push(obj.data);
 			$scope.$digest();*/
 
-			//Trigger a resourse load for client to detect button press
-			$http.get($scope.baseUrl+'screenshotButton'+'/'+ $scope.deviceid)
+			//Trigger a resourse load for client to detect button press - old solution
+			/*$http.get($scope.baseUrl+'screenshotButton'+'/'+ $scope.deviceid)
 			.success(function(success_data){
-			});
+			});*/
 
 			setTimeout(function(){  
 				//Trigger a resourse load for client to detect button press
