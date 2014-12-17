@@ -1,0 +1,17 @@
+<div class="jumbotron">
+  <h1 align="center">Welcome</h1>
+</div>
+
+ <script>
+ 		'use strict';
+		function getSnapshotStatus(){
+
+			var factory;
+			var status;
+
+			factory = angular.element('*[ng-app]').injector().get("snapshotFactory");
+			status = factory.getSnapshotRequested();
+			return status;
+		}
+ </script>
+

@@ -8,12 +8,11 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('AppCtrl',['$scope','$rootScope','activityFactory','appFactory','chartFactory','dateFactory', function ($scope,$rootScope,activityFactory,appFactory,chartFactory,dateFactory) {
+  .controller('AppCtrl',['$scope','$rootScope','activityFactory','appFactory','chartFactory','dateFactory','$location', function ($scope,$rootScope,activityFactory,appFactory,chartFactory,dateFactory,$location) {
  
-    //TODO
-    /*if($rootScope.user.length == 0){
-      return;
-    };*/
+    if($rootScope.user == null || $rootScope.user.length == 0){
+       $location.path('/');
+    };
 
     /*******************************************
     * Variables

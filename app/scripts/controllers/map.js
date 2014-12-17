@@ -8,11 +8,11 @@
  * Controller of the clientApp
  */
  angular.module('clientApp')
- .controller('MapCtrl',['$scope','$http','$rootScope','configFactory','activityFactory', function ($scope,$http,$rootScope,configFactory,activityFactory) {
+ .controller('MapCtrl',['$scope','$http','$rootScope','configFactory','activityFactory','$location', function ($scope,$http,$rootScope,configFactory,activityFactory,$location) {
 
-    /*if($rootScope.user.length === 0){
-      return;
-    }*/
+    if($rootScope.user == null || $rootScope.user.length == 0){
+       $location.path('/');
+    };
 
     /*******************************************
     * Variables

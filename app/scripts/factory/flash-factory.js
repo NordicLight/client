@@ -15,6 +15,10 @@ angular.module('flash', [])
 
   return {
 
+    clear: function(){
+      currentMessage = "";
+      show = false;
+    },
     show: function() {
       return show;
     },

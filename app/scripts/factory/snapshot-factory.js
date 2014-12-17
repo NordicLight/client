@@ -1,31 +1,31 @@
 'use strict';
 
 angular.module('clientApp')
-.factory("configFactory",[ function() {
+.factory("snapshotFactory",[ function() {
 
 	var factory = {};
 
 	/*******************************************
     * Variables
     ********************************************/
-    var debug = false;
+    var snapshotButtonPressed = false;
 
 	/*******************************************
     * Factory External Methods
     ********************************************/
 
-    factory.check = function (user,pass) {
-    	return user;
-    }
+    factory.setSnapshotRequested = function () {
+    	snapshotButtonPressed = true;
+    };
 
-	factory.getBaseURL = function () {
+	factory.getSnapshotRequested = function () {
 
-		if(debug){
-			return 'http://localhost:1337/';
+		if(snapshotButtonPressed){
+			snapshotButtonPressed = false;
+			return 'pressed';
 		}else{
-			return 'http://cloud-monitor-server.herokuapp.com/';
+			return '';
 		}
-
 	};
 
 	return factory;

@@ -61,6 +61,18 @@ angular
         templateUrl: 'views/chat.html',
         controller: 'ChatCtrl'
       })
+      .when('/chatclient', {
+        templateUrl: 'views/chatclient.html',
+        controller: 'ChatclientCtrl'
+      })
+      .when('/clientlogin', {
+        templateUrl: 'views/clientlogin.html',
+        controller: 'ClientloginCtrl'
+      })
+      .when('/clientcreateaccount', {
+        templateUrl: 'views/clientcreateaccount.html',
+        controller: 'ClientcreateaccountCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

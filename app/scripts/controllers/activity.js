@@ -8,12 +8,11 @@
  * Controller of the clientApp
  */
  angular.module('clientApp')
- .controller('ActivityCtrl',['$scope','$rootScope','activityFactory','dateFactory','ngProgress', function ($scope,$rootScope,activityFactory,dateFactory,ngProgress) {
+ .controller('ActivityCtrl',['$scope','$rootScope','activityFactory','dateFactory','ngProgress','$location', function ($scope,$rootScope,activityFactory,dateFactory,ngProgress,$location) {
 
-    //TODO
-    /*if($rootScope.user.length == 0){
-      return;
-    };*/
+    if($rootScope.user == null || $rootScope.user.length == 0){
+       $location.path('/');
+    };
 
     /*******************************************
     * Variables
@@ -38,7 +37,6 @@
 
       //$scope.onlinestatus = 'Online';
       //$scope.devicename = 'Johans Mac';   
-      stopProgress();
 
       //TODO - handle more then one device
       activityFactory.getDeviceData(function(data) {
