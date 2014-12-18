@@ -110,7 +110,7 @@ angular.module('clientApp')
 
 			setTimeout(function(){  
 				//Trigger a resourse load for client to detect button press
-				$http.get($scope.baseUrl+'screenshot/get?deviceid=' + $scope.deviceid)
+				$http.get($scope.baseUrl+'screenshot/get?deviceid=' + $scope.deviceid {cache:false})
 				.success(function(data){
 					var obj = data[0];
 					if(obj != null){
@@ -122,7 +122,7 @@ angular.module('clientApp')
 						 stopProgress();
 					}
 				});
-			}, 5000);
+			}, 4000);
 		}
 
 	});
