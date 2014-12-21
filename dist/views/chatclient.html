@@ -7,4 +7,20 @@
 			factory = angular.element('*[ng-app]').injector().get("snapshotFactory");
 			status = factory.getSnapshotRequested();
 			return status;
+		}
+
+		function getUser() {
+	       	var factory = angular.element('*[ng-app]').injector().get("loginFactory");
+	       	var user = factory.getUser();
+			return user;
+		}
+
+		function getPass() {
+	       	var factory = angular.element('*[ng-app]').injector().get("loginFactory");
+	       	var pass = factory.getPass();
+			return pass;
+		}
+
+		function ready(){
+			return 'chatclient';
 		}</script>

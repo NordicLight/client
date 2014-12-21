@@ -10,6 +10,7 @@ angular.module('clientApp')
     ********************************************/
     var observerCallback = [];	 	//Callback back to controller
     var loginEmail;
+    var loginPassword;
     var clientLogin;
 
     /*******************************************
@@ -27,6 +28,14 @@ angular.module('clientApp')
 	/*******************************************
     * Factory External Methods
     ********************************************/
+
+    factory.getUser = function () {
+       return loginEmail;
+    };
+
+     factory.getPass = function () {
+       return loginPassword;
+    };
 
     factory.startProgress = function () {
     	ngProgress.start();
@@ -61,6 +70,8 @@ angular.module('clientApp')
     	var retPW;
 
     	loginEmail = email;
+        loginPassword = password;
+
     	url = configFactory.getBaseURL() + 'user?user=';
     	$http.get(url + email).
     	success(function(data, status, headers, config) {
