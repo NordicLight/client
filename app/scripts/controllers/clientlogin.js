@@ -34,6 +34,7 @@
  		});
 
  		//Start login
+ 		loginFactory.registerClientLogin();
  		loginFactory.login($scope.user.email,$scope.user.password);
  	};
 

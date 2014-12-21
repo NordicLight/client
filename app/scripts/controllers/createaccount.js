@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
  angular.module('clientApp')
- .controller('CreateaccountCtrl',['$scope','$http','$location','$rootScope','flash','configFactory', function ($scope,$http,$location,$rootScope,flash,configFactory) {
+ .controller('CreateaccountCtrl',['$scope','$http','$location','$rootScope','flash','configFactory','ngProgress', function ($scope,$http,$location,$rootScope,flash,configFactory,ngProgress) {
 
  	var today,year,month,day,date,obj;
  	$scope.flash = flash;
@@ -39,8 +39,8 @@
       var url = configFactory.getBaseURL() + 'user';
       $http.post(url,obj).
       success(function(data, status, headers, config) {
+       
         stopProgress();
-        $rootScope.logedin = true;
         $rootScope.user = $scope.user.email;
         $location.path('/activity');
       }).
@@ -50,9 +50,7 @@
       }
       );
 
- 			//$rootScope.logedin = true;
- 			//$location.path('/activity');
- 		}else {
+    }else {
       		//TODO - add error user feedback
         };
 

@@ -33,8 +33,16 @@ angular.module('clientApp')
        return loginEmail;
     };
 
-     factory.getPass = function () {
+    factory.setUser = function (user) {
+     loginEmail = user;
+    };
+
+    factory.getPass = function () {
        return loginPassword;
+    };
+
+    factory.setPass = function (pass) {
+     loginPassword = pass;
     };
 
     factory.startProgress = function () {
