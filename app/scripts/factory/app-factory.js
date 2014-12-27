@@ -9,15 +9,14 @@ angular.module('clientApp')
     * Factory External Methods
     ********************************************/
 
-	factory.getApps = function (callback) {
+	factory.getApps = function (deviceid,user,callback) {
 
 		var searchDate;
         searchDate = dateFactory.getSearchDateInt(14);
 
-        var url = configFactory.getBaseURL() + 'app/getitems?timeid=';
+        var url = configFactory.getBaseURL() + 'app/getitems?timeid=' + searchDate + '&deviceid=' + deviceid + '&user=' + user;
 
-        //$http.get('http://localhost:1337/app/getitems?timeid='+ searchDate).success(callback);
-        $http.get(url + searchDate).success(callback);
+        $http.get(url).success(callback);
 	};
 
 	return factory;

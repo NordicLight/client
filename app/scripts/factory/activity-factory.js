@@ -72,26 +72,26 @@ angular.module('clientApp')
     	return graphData;
     };
 
-    factory.getDeviceData = function (callback) {
-      var url = configFactory.getBaseURL() + 'activity/getdevices';
+    factory.getDeviceData = function (user,callback) {
+      var url = configFactory.getBaseURL() + 'activity/getdevices?user='+user;
       $http.get(url).success(callback);
     };
 
-    factory.getOnlineData = function (callback,user) {
-      var url = configFactory.getBaseURL() + 'online/get?deviceid=' + user;
+    factory.getOnlineData = function (callback,deviceid,user) {
+      var url = configFactory.getBaseURL() + 'online/get?deviceid=' + deviceid +'&user=' + user;
       $http.get(url).success(callback);
     };
 
-    factory.triggerChartData = function () {
+    factory.triggerChartData = function (deviceid,user) {
 
       var searchDate;
       searchDate = dateFactory.getSearchDateInt(14);
 
-      var url = configFactory.getBaseURL() + 'activity/getitems?timeid=';
+      var url = configFactory.getBaseURL() + 'activity/getitems?timeid=' + searchDate + '&deviceid=' + deviceid + '&user=' + user;
 
 	  //on load to get chart
 	  //$http.get('http://localhost:1337/activity/getitems?timeid=' + searchDate).success(function(data) {
-      $http.get(url + searchDate).success(function(data) {
+      $http.get(url).success(function(data) {
 
         var len;
         var obj;
@@ -150,8 +150,7 @@ angular.module('clientApp')
 
               graphData.data = tempArray;
 
-              console.log(graphData);
-          //$scope.chartdata = graphData;
+              //console.log(graphData);
         }
 
          //Add today if it is missing - The algo above only backfills

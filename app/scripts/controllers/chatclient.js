@@ -8,8 +8,13 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('ChatclientCtrl',['$scope','$http','configFactory','snapshotFactory', function ($scope,$http,configFactory,snapshotFactory) {
+  .controller('ChatclientCtrl',['$scope','$http','configFactory','snapshotFactory','$rootScope', function ($scope,$http,configFactory,snapshotFactory,$rootScope) {
    
+   	/*******************************************
+    * Variables
+    ********************************************/
+
+	$scope.username = $rootScope.user;
 
   	/*******************************************
     * Listen for screenshot

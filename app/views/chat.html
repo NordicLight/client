@@ -19,6 +19,8 @@
  		<br>
  		<devicestatus>Status: <span ng-style="customStyle.style">{{onlinestatus}}</span></devicestatus>
  		<br>
+ 		<devicestatus>Type: {{devicetype}}</devicestatus>
+ 		<br>
  		<devicestatus>{{onlinetime}}</devicestatus>
  		<br>
  		<br>
@@ -37,7 +39,7 @@
 				<div class="navbar-collapse collapse sidebar-navbar-collapse">
 					<li class="active">Devices</li>
 					<ul class="nav navbar-nav" ng-repeat="device in deviceData">
-						<li class="active" ng-click="viewActivity($index)"><a nohref="nohref">{{device}}</a></li>
+						<li class="active" ng-click="onDeviceClick($index)"><a nohref="nohref" style="cursor:pointer;">{{device}}</a></li>
 						<!-- <li><a href="#">Menu Item 2</a></li>-->
 
 					</ul>

@@ -11,7 +11,7 @@ angular.module('clientApp')
     * Variables
     ********************************************/
     $scope.deviceDataArray=[];      //Data holds all device navbar object data
-    $scope.deviceData="";           //Data holds device navbar
+    $scope.deviceData=[];          //Data holds device navbar user information
     $scope.image;					//Screenshot
     $scope.deviceid;
 
@@ -30,37 +30,74 @@ angular.module('clientApp')
     //called on load
     function onload() {
 
-	    //TODO - handle more then one device
-	    activityFactory.getDeviceData(function(data) {
-	    	var deviceid = data.deviceid;
-	    	$scope.deviceid = deviceid;
-	    	var temp = data.devicename;
-	    	$scope.devicename = temp;
-	    	$scope.deviceData = {"first":temp};
-	    	$scope.deviceDataArray.push(data);
+	    activityFactory.getDeviceData($rootScope.user,function(data) {
 
-	        //Get online status
-	        activityFactory.getOnlineData(function(onlinedata) {
+        var name;
+        var obj;
+        var devicename;
+        var deviceid;
 
-	        	if(onlinedata == null || onlinedata.length === 0){
-	        		$scope.onlinestatus = '?';
-	        		$scope.onlinetime = '?';
-	        	}else{
-	        		$scope.onlinestatus = onlinedata[0].status;
-	        		$scope.onlinetime = onlinedata[0].timestamp;
-	        		if($scope.onlinestatus === 'online'){
-	        			turnGreen();
-	        		} 
-	        	}
-	        },deviceid);
+        for(var i=0;i<data.length;i++){
+          obj = data[i];
+          name = obj.devicename;
+          $scope.deviceData.push(name);
+          $scope.deviceDataArray.push(obj);
+        }
 
-	    });
+        //Trigger online data
+        deviceid = $scope.deviceDataArray[0].deviceid;
+        devicename = $scope.deviceDataArray[0].devicename;
+        getOnlineData(deviceid,$rootScope.user,devicename);
+
+      });
 
 	}
 	onload();
 
+	/*******************************************
+    * Functions
+    ********************************************/
+
+    function getOnlineData(deviceid,user,devicename){
+
+          //Get online status - start with first device
+          activityFactory.getOnlineData(function(onlinedata) {
+
+            if(onlinedata === null || onlinedata.length === 0){
+            $scope.devicename = devicename; //Improve usability. if no data on server an user clicks
+            $scope.onlinestatus = '?';
+            $scope.devicetype = '?';
+            $scope.onlinetime = '';
+          }else{
+           $scope.onlinestatus = onlinedata[0].status;
+           $scope.onlinetime = onlinedata[0].timestamp;
+           $scope.devicename = onlinedata[0].devicename;
+           $scope.devicetype = onlinedata[0].type;
+           if($scope.onlinestatus === 'online'){
+             turnGreen();
+           }else{
+            turnBlack();
+          }
+        }
+      },deviceid,user);
+    }
+
+	function turnGreen (){
+		$scope.customStyle.style = {'color':'green'};
+	}
+
+	function turnBlack (){
+		$scope.customStyle.style = {'color':'red'};
+	}
+
+	function stopProgress() {
+        //Stop progressbar - could have been initiated from login or create account
+        ngProgress.stop();
+        ngProgress.hide();
+    }
+
     /*******************************************
-    * Chat
+    * Screenshot socket.io
     ********************************************/
 
     //Sails wiki documentation
@@ -138,21 +175,20 @@ angular.module('clientApp')
 		$scope.chatMessage = "";
 	};
 
-	/*******************************************
-	* Chaning color of device status
-	********************************************/
+  /*******************************************
+  * Callbacks
+  ********************************************/
 
-	function turnGreen (){
-		$scope.customStyle.style = {'color':'green'};
-	}
+  $scope.onDeviceClick = function(index){
+      var deviceid;
+      var devicename;
 
-	function turnBlack (){
-		$scope.customStyle.style = {'color':'black'};
-	}
+      //Load the data from the clicked device
+      deviceid = $scope.deviceDataArray[index].deviceid;
+      devicename = $scope.deviceDataArray[index].devicename;
+     
+      //Trigger online data
+      getOnlineData(deviceid,$rootScope.user,devicename);
+  };
 
-	function stopProgress() {
-        //Stop progressbar - could have been initiated from login or create account
-        ngProgress.stop();
-        ngProgress.hide();
-      }
 }]);

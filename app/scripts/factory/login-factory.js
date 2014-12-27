@@ -25,6 +25,26 @@ angular.module('clientApp')
     	}
     }
 
+    function updateLoginTime(email){
+
+        http://localhost:1337/user/updatelogintime?user=johan.b.brodin@gmail.com&logintime=20141223
+        var url;
+        var dateString;
+
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+        dateString = yyyy.toString() + mm.toString() + dd.toString();
+
+        //TODO add coorect date
+        url = configFactory.getBaseURL() + 'user/updatelogintime?user=' + email + '&' + 'logintime=' + dateString;
+        $http.get(url).
+        success(function(data) {
+        });
+
+    }
+
 	/*******************************************
     * Factory External Methods
     ********************************************/
@@ -88,6 +108,9 @@ angular.module('clientApp')
 
     			retPW = data[0].password;
     			if(retPW === password) {
+                    if(clientLogin === false){
+                        updateLoginTime(email);
+                    }
     				callCallback('success');
     			}else{
     				callCallback('Incorrect password!');
