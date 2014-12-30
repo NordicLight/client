@@ -149,55 +149,54 @@ angular.module('clientApp')
 			.success(function(success_data){
 			});*/
 
-			/*setTimeout(function(){  
-				//Trigger a resourse load for client to detect button press
-				$http.get($scope.baseUrl+'screenshot/get?deviceid=' + $scope.deviceid)
-				.success(function(data){
-					var obj = data[0];
-					if(obj != null){
-						$scope.image = obj.screenshot;
-						//$scope.screenshotTimestamp = obj.timestamp;
-            $scope.screenshotTimestamp = obj.token.toString();
-						stopProgress();
-					} else {
-						 flash.setMessage('Failed to extract Screenshot from server');
-						 stopProgress();
-					}
-				});
-			}, 4000);*/
 		}
 
 	});
 
 	$scope.sendMsg = function(){
 
-		screenshotToken++;
+    if($scope.onlinestatus === 'online'){
 
-    flash.clear();
-		ngProgress.start();
+        screenshotToken++;
 
-		$log.info($scope.chatMessage);
-		//io.socket.post($scope.baseUrl+'/chat/addconv/',{user:$rootScope.user,message: $scope.chatMessage});
-		io.socket.post($scope.baseUrl+'chat/addconv/',{user:$rootScope.user, deviceid:$scope.deviceid, token:screenshotToken});
-		$scope.chatMessage = "";
+        flash.clear();
+    		ngProgress.start();
 
-    //Wait for return image
-    setTimeout(function(){  
-        //Trigger a resourse load for client to detect button press
-        $http.get($scope.baseUrl+'screenshot/get?deviceid=' + $scope.deviceid)
-        .success(function(data){
-          var obj = data[0];
-          if(obj != null){
-            $scope.image = obj.screenshot;
-            //$scope.screenshotTimestamp = obj.timestamp;
-            $scope.screenshotTimestamp = obj.token.toString();
-            stopProgress();
-          } else {
-             flash.setMessage('Failed to extract Screenshot from server');
-             stopProgress();
-          }
-        });
-      }, 6000);
+    		$log.info($scope.chatMessage);
+    		//io.socket.post($scope.baseUrl+'/chat/addconv/',{user:$rootScope.user,message: $scope.chatMessage});
+    		io.socket.post($scope.baseUrl+'chat/addconv/',{user:$rootScope.user, deviceid:$scope.deviceid, token:screenshotToken});
+    		$scope.chatMessage = "";
+
+        //Wait for return image
+        setTimeout(function(){  
+            //Trigger a resourse load for client to detect button press
+            $http.get($scope.baseUrl+'screenshot/get?deviceid=' + $scope.deviceid)
+            .success(function(data){
+              var obj = data[0];
+              if(obj != null){
+
+                if(obj.token === screenshotToken){
+
+                   $scope.image = obj.screenshot;
+                   $scope.screenshotTimestamp = 'Screenshot successful';
+                 
+                }else{
+
+                   $scope.image = obj.screenshot;
+                   $scope.screenshotTimestamp = 'Screenshot request not matching. Old screenshot with client timestamp ' + obj.timestamp ;
+                }
+                stopProgress();
+
+              } else {
+                 flash.setMessageWithTimer('Failed to extract screenshot from server');
+                 stopProgress();
+              }
+            });
+          }, 5000);
+      }else{
+         flash.setMessageWithTimer('Client needs to be online to take screenshot');
+      }
+
 	};
 
   /*******************************************

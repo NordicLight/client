@@ -27,6 +27,14 @@ angular.module('flash', [])
       currentMessage = message;
       show = true;
     },
+    setMessageWithTimer: function(message) {
+      //queue.push(message);
+      currentMessage = message;
+      show = true;
+      setTimeout(function(){  
+          clear();
+      }, 3000);
+    },
     getMessage: function() {
       //return queue[0];
       return currentMessage;
