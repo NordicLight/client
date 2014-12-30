@@ -158,6 +158,7 @@ angular.module('clientApp')
 						$scope.image = obj.screenshot;
 						$scope.screenshotTimestamp = obj.timestamp;
 						stopProgress();
+            window.alert(obj.token.toString());
 					} else {
 						 flash.setMessage('Failed to extract Screenshot from server');
 						 stopProgress();
