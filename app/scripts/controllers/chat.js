@@ -55,6 +55,11 @@ angular.module('clientApp')
 
       });
 
+      //Show any old screenshots stored in root
+      if($rootScope.screenshot == null || $rootScope.screenshot.length == 0){
+      } else {
+        $scope.image = $rootScope.screenshot;
+      }
 	}
 	onload();
 
@@ -160,6 +165,7 @@ angular.module('clientApp')
         screenshotToken++;
 
         flash.clear();
+        $scope.image = '';
     		ngProgress.start();
 
     		$log.info($scope.chatMessage);
@@ -179,6 +185,9 @@ angular.module('clientApp')
 
                    $scope.image = obj.screenshot;
                    $scope.screenshotTimestamp = 'Screenshot successful';
+
+                   //Save screenshot to root so that we can show it swithching between tabs
+                   $rootScope.screenshot = obj.screenshot;
                  
                 }else{
 
@@ -196,9 +205,6 @@ angular.module('clientApp')
           }, 5000);
       }else{
          flash.setMessage('Client needs to be online to take screenshot');
-         setTimeout(function(){  
-            flash.clear();
-         }, 3000);
       }
 
 	};
