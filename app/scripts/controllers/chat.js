@@ -203,6 +203,7 @@ angular.module('clientApp')
             });
           }, 5000);
       }else{
+         clearScreenshot();
          flash.setMessage('Client needs to be online to take screenshot');
       }
 
@@ -223,6 +224,14 @@ angular.module('clientApp')
      
       //Trigger online data
       getOnlineData(deviceid,$rootScope.user,devicename);
+
+      //Remove screenshot from old device
+      clearScreenshot();
   };
+
+  function clearScreenshot(){
+    $rootScope.screenshot = null;
+    $scope.image = null;
+  }
 
 }]);
