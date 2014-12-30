@@ -175,7 +175,7 @@ angular.module('clientApp')
               var obj = data[0];
               if(obj != null){
 
-                if(obj.token === screenshotToken){
+                if(obj.token == screenshotToken){
 
                    $scope.image = obj.screenshot;
                    $scope.screenshotTimestamp = 'Screenshot successful';
@@ -183,7 +183,8 @@ angular.module('clientApp')
                 }else{
 
                    $scope.image = obj.screenshot;
-                   $scope.screenshotTimestamp = 'Screenshot request not matching. Old screenshot with client timestamp ' + obj.timestamp ;
+                   $scope.screenshotTimestamp  = obj.token.toString() + ' ' +  screenshotToken.toString();
+                   //$scope.screenshotTimestamp = 'Screenshot request not matching. Old screenshot with client timestamp ' + obj.timestamp ;
                 }
                 stopProgress();
 
