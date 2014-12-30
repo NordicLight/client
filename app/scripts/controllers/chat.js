@@ -183,19 +183,22 @@ angular.module('clientApp')
                 }else{
 
                    $scope.image = obj.screenshot;
-                   $scope.screenshotTimestamp  = obj.token.toString() + ' ' +  screenshotToken.toString();
-                   //$scope.screenshotTimestamp = 'Screenshot request not matching. Old screenshot with client timestamp ' + obj.timestamp ;
+                   //$scope.screenshotTimestamp  = obj.token.toString() + ' ' +  screenshotToken.toString();
+                   $scope.screenshotTimestamp = 'Screenshot request not matching. Old screenshot with client timestamp ' + obj.timestamp ;
                 }
                 stopProgress();
 
               } else {
-                 flash.setMessageWithTimer('Failed to extract screenshot from server');
+                 flash.setMessage('Failed to extract screenshot from server');
                  stopProgress();
               }
             });
           }, 5000);
       }else{
-         flash.setMessageWithTimer('Client needs to be online to take screenshot');
+         flash.setMessage('Client needs to be online to take screenshot');
+         setTimeout(function(){  
+            flash.clear();
+         }, 3000);
       }
 
 	};
