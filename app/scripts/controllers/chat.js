@@ -3,9 +3,9 @@
 angular.module('clientApp')
 .controller('ChatCtrl',['$http','$log','$scope','$rootScope','activityFactory','configFactory','$location','ngProgress','flash', function($http,$log,$scope,$rootScope,activityFactory,configFactory,$location,ngProgress,flash){
 
-	/*if($rootScope.user == null || $rootScope.user.length == 0){
+	 if($rootScope.user == null || $rootScope.user.length == 0){
        $location.path('/');
-    };*/
+    };
 
     /*******************************************
     * Variables
@@ -22,6 +22,8 @@ angular.module('clientApp')
     $scope.customStyle = {};        //Color for text
 
     $scope.flash = flash;
+
+    var screenshotToken = 1;
 
     /*******************************************
     * Init
@@ -168,12 +170,14 @@ angular.module('clientApp')
 
 	$scope.sendMsg = function(){
 
-		flash.clear();
+		screenshotToken++;
+
+    flash.clear();
 		ngProgress.start();
 
 		$log.info($scope.chatMessage);
 		//io.socket.post($scope.baseUrl+'/chat/addconv/',{user:$rootScope.user,message: $scope.chatMessage});
-		io.socket.post($scope.baseUrl+'chat/addconv/',{user:'user',message: $scope.deviceid});
+		io.socket.post($scope.baseUrl+'chat/addconv/',{user:$rootScope.user, deviceid:$scope.deviceid, token:screenshotToken});
 		$scope.chatMessage = "";
 	};
 

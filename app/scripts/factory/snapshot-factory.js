@@ -9,20 +9,31 @@ angular.module('clientApp')
     * Variables
     ********************************************/
     var snapshotButtonPressed = false;
+    var myDeviceid = '';
+    var myUser = '';
+    var myToken = '';
 
 	/*******************************************
     * Factory External Methods
     ********************************************/
 
-    factory.setSnapshotRequested = function () {
+    factory.setSnapshotRequested = function (deviceid,user,token) {
+    	
+    	myDeviceid = deviceid;
+    	myUser = user;
+    	myToken = token;
+
     	snapshotButtonPressed = true;
     };
 
 	factory.getSnapshotRequested = function () {
 
+		var retString = '';
+
 		if(snapshotButtonPressed){
 			snapshotButtonPressed = false;
-			return 'pressed';
+			retString = 'pressed' + ',' + myDeviceid + ',' + myUser + ',' + myToken; 
+			return retString;
 		}else{
 			return '';
 		}

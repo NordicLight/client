@@ -36,7 +36,10 @@ angular.module('clientApp')
 			.success(function(success_data){
 			});*/
 
-			snapshotFactory.setSnapshotRequested();
+			var deviceid = obj.data.deviceid;
+			var user = obj.data.user;
+			var token = obj.data.token;
+			snapshotFactory.setSnapshotRequested(deviceid,user,token);
 		}
 
 	});

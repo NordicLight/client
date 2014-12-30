@@ -16,7 +16,7 @@ angular.module('clientApp')
 
     factory.check = function (user,pass) {
     	return user;
-    }
+    };
 
 	factory.getBaseURL = function () {
 
