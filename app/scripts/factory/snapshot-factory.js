@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('clientApp')
-.factory("snapshotFactory",[ function() {
+.factory("snapshotFactory",['$rootScope', function($rootScope) {
 
 	var factory = {};
 
@@ -23,7 +23,15 @@ angular.module('clientApp')
     	myUser = user;
     	myToken = token;
 
-    	snapshotButtonPressed = true;
+        try {
+
+            //All snappshots from all users are triggering this function. only notify this user if user match!
+            if($rootScope.user == user || $rootScope.user.length > 0){
+                snapshotButtonPressed = true;
+            }
+
+        }
+        catch(err) {}
     };
 
 	factory.getSnapshotRequested = function () {
