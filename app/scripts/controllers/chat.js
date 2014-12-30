@@ -149,22 +149,22 @@ angular.module('clientApp')
 			.success(function(success_data){
 			});*/
 
-			setTimeout(function(){  
+			/*setTimeout(function(){  
 				//Trigger a resourse load for client to detect button press
 				$http.get($scope.baseUrl+'screenshot/get?deviceid=' + $scope.deviceid)
 				.success(function(data){
 					var obj = data[0];
 					if(obj != null){
 						$scope.image = obj.screenshot;
-						$scope.screenshotTimestamp = obj.timestamp;
+						//$scope.screenshotTimestamp = obj.timestamp;
+            $scope.screenshotTimestamp = obj.token.toString();
 						stopProgress();
-            window.alert(obj.token.toString());
 					} else {
 						 flash.setMessage('Failed to extract Screenshot from server');
 						 stopProgress();
 					}
 				});
-			}, 4000);
+			}, 4000);*/
 		}
 
 	});
@@ -180,6 +180,24 @@ angular.module('clientApp')
 		//io.socket.post($scope.baseUrl+'/chat/addconv/',{user:$rootScope.user,message: $scope.chatMessage});
 		io.socket.post($scope.baseUrl+'chat/addconv/',{user:$rootScope.user, deviceid:$scope.deviceid, token:screenshotToken});
 		$scope.chatMessage = "";
+
+    //Wait for return image
+    setTimeout(function(){  
+        //Trigger a resourse load for client to detect button press
+        $http.get($scope.baseUrl+'screenshot/get?deviceid=' + $scope.deviceid)
+        .success(function(data){
+          var obj = data[0];
+          if(obj != null){
+            $scope.image = obj.screenshot;
+            //$scope.screenshotTimestamp = obj.timestamp;
+            $scope.screenshotTimestamp = obj.token.toString();
+            stopProgress();
+          } else {
+             flash.setMessage('Failed to extract Screenshot from server');
+             stopProgress();
+          }
+        });
+      }, 6000);
 	};
 
   /*******************************************
