@@ -165,7 +165,6 @@ angular.module('clientApp')
         screenshotToken++;
 
         flash.clear();
-        $scope.image = '';
     		ngProgress.start();
 
     		$log.info($scope.chatMessage);
