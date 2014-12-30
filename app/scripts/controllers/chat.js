@@ -230,8 +230,12 @@ angular.module('clientApp')
   };
 
   function clearScreenshot(){
-    $rootScope.screenshot = null;
-    $scope.image = null;
+    $scope.screenshotTimestamp = '';
+    $rootScope.screenshot = '';
+    $scope.image = '';
+
+    flash.setMessage('');
+    flash.clear();
   }
 
 }]);
