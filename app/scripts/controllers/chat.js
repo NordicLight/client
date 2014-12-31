@@ -56,10 +56,10 @@ angular.module('clientApp')
       });
 
       //Show any old screenshots stored in root
-      if($rootScope.screenshot == null || $rootScope.screenshot.length == 0){
+      /*if($rootScope.screenshot == null || $rootScope.screenshot.length == 0){
       } else {
         $scope.image = $rootScope.screenshot;
-      }
+      }*/
 	}
 	onload();
 
