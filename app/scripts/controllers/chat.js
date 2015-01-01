@@ -48,9 +48,9 @@ angular.module('clientApp')
 
         //Trigger online data
 
-        deviceid = $scope.deviceDataArray[0].deviceid;
+        deviceid = $scope.deviceDataArray[$rootScope.activedIndex].deviceid;
         $scope.deviceid = deviceid;
-        devicename = $scope.deviceDataArray[0].devicename;
+        devicename = $scope.deviceDataArray[$rootScope.activedIndex].devicename;
         getOnlineData(deviceid,$rootScope.user,devicename);
 
       });
@@ -216,6 +216,8 @@ angular.module('clientApp')
   $scope.onDeviceClick = function(index){
       var deviceid;
       var devicename;
+
+      $rootScope.activedIndex = index;
 
       //Load the data from the clicked device
       deviceid = $scope.deviceDataArray[index].deviceid;

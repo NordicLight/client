@@ -50,8 +50,8 @@
         }
 
         //Trigger online data
-        deviceid = $scope.deviceDataArray[0].deviceid;
-        devicename = $scope.deviceDataArray[0].devicename;
+        deviceid = $scope.deviceDataArray[$rootScope.activedIndex].deviceid;
+        devicename = $scope.deviceDataArray[$rootScope.activedIndex].devicename;
         getOnlineData(deviceid,$rootScope.user,devicename);
 
         //Load chart data for first device
@@ -128,7 +128,7 @@
 
     $scope.chartType = "bar";
     $scope.chartconfig = {
-      title: 'Activity hours (click for details)',
+      title: 'Activity Hours (click for details)',
       tooltips: true,
       labels: false,
       mouseover: function() { },
@@ -137,7 +137,8 @@
 
        var temp;
 
-       temp = this.x.substring(0, 2) + this.x.substring(3, 5);
+       //temp = this.x.substring(0, 2) + this.x.substring(3, 5);
+       temp = this.x.substring(0, 4) + this.x.substring(5, 7) + this.x.substring(8, 10);
        chartClick(temp);
 
      },
@@ -170,6 +171,8 @@
   $scope.onDeviceClick = function(index){
       var deviceid;
       var devicename;
+
+      $rootScope.activedIndex = index;
 
       //Load the data from the clicked device
       deviceid = $scope.deviceDataArray[index].deviceid;

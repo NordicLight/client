@@ -123,7 +123,7 @@ angular.module('clientApp')
                 }
 
                 name = searchDate.toString();
-                name = name.substring(4, 6) + '-' + name.substring(6, 8);
+                name = name.substring(0,4) + '-' + name.substring(4, 6) + '-' + name.substring(6, 8);
                 tempArray.push({x:name,y:[0]}); 
                 searchDate++;
               }
@@ -133,7 +133,7 @@ angular.module('clientApp')
                   //Combine duration of several logged objects in one day
                   len = len + obj.duration;
                   name = obj.timeid.toString();
-                  name = name.substring(4, 6) + '-' + name.substring(6, 8);
+                  name = name.substring(0,4) + '-' + name.substring(4, 6) + '-' + name.substring(6, 8);
                   i++;
                   if(i<data.length){
                   	obj = data[i];

@@ -111,6 +111,7 @@ angular.module('clientApp')
                     if(clientLogin === false){
                         updateLoginTime(email);
                     }
+                    $rootScope.activedIndex = 0;
     				callCallback('success');
     			}else{
     				callCallback('Incorrect password!');

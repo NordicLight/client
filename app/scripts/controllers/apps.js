@@ -51,8 +51,8 @@ angular.module('clientApp')
           }
 
           //Trigger online data
-          deviceid = $scope.deviceDataArray[0].deviceid;
-          devicename = $scope.deviceDataArray[0].devicename;
+          deviceid = $scope.deviceDataArray[$rootScope.activedIndex].deviceid;
+          devicename = $scope.deviceDataArray[$rootScope.activedIndex].devicename;
           getOnlineData(deviceid,$rootScope.user,devicename);
 
           //Load chart data for first device
@@ -132,7 +132,7 @@ angular.module('clientApp')
     ********************************************/
     $scope.chartType = "bar";
     $scope.chartconfig = {
-      title: 'Activity hours (click for details)',
+      title: 'Apps Hours (click for details)',
       tooltips: true,
       labels: false,
       mouseover: function() { },
@@ -141,7 +141,8 @@ angular.module('clientApp')
 
        var temp;
 
-       temp = this.x.substring(0, 2) + this.x.substring(3, 5);
+       //temp = this.x.substring(0, 2) + this.x.substring(3, 5);
+       temp = this.x.substring(0, 4) + this.x.substring(5, 7) + this.x.substring(8, 10);
        chartClick(temp);
 
      },
@@ -159,19 +160,19 @@ angular.module('clientApp')
     //Clickdate is in format MMDD
 
     //Update table
-    for(var i=0;i<$scope.savedData.length;i++) {
+    /*for(var i=0;i<$scope.savedData.length;i++) {
       timeId = $scope.savedData[i].timeid;
       objDate = timeId.toString();
       if(objDate.indexOf(clickDate) > -1) {
         array.push($scope.savedData[i]);
       }
-    }
+    }*/
     //array = chartFactory.sortArray(array);
     //$scope.tableDataArray = array;
 
     //Update pie - TODO is not working with year wrap over
+    //clickDate = dateFactory.getYearString() + clickDate;
 
-    clickDate = dateFactory.getYearString() + clickDate;
     var pieData = chartFactory.getAppChartData($scope.savedData,clickDate);
     $scope.chartDataPie = pieData;
 
@@ -205,6 +206,8 @@ angular.module('clientApp')
   $scope.onDeviceClick = function(index){
       var deviceid;
       var devicename;
+
+      $rootScope.activedIndex = index;
 
       //Load the data from the clicked device
       deviceid = $scope.deviceDataArray[index].deviceid;

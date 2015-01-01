@@ -79,8 +79,8 @@
         }
 
         //Trigger online data
-        deviceid = $scope.deviceDataArray[0].deviceid;
-        devicename = $scope.deviceDataArray[0].devicename;
+        deviceid = $scope.deviceDataArray[$rootScope.activedIndex].deviceid;
+        devicename = $scope.deviceDataArray[$rootScope.activedIndex].devicename;
         getOnlineData(deviceid,$rootScope.user,devicename);
 
         //Trigger load map data first device
@@ -174,6 +174,8 @@
   $scope.onDeviceClick =  function click(index) {
     var deviceid;
     var devicename;
+
+    $rootScope.activedIndex = index;
 
     //Reset flash message
     flash.clear();

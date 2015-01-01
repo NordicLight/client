@@ -112,12 +112,14 @@ angular.module('clientApp')
 					}
 				}
 
-				//add app to vector
-				appList.push(app);
+				//add app to vector - only add if more then one min
+				if(app.runtime > 0){
+					appList.push(app);
+				}
+				
 			}
 
 		}
-
 		//Sort applist
 		appList.sort(mycomparator);
 
