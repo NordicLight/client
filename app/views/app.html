@@ -1,4 +1,7 @@
-<div class="header">
+<!--Top navigation bar -->
+
+<!--Top navigation bar for large screen sizes -->
+<div class="header visible-sm visible-md visible-lg">
 	<ul class="nav nav-pills pull-right">
 		<li><a ng-href="#/app">Apps</a></li>
 		<li><a ng-href="#/activity">Activity</a></li>
@@ -7,8 +10,32 @@
 		<li><a ng-href="#/">Logout</a></li>
 		<!--  <li><a ng-href="#">Contact</a></li>-->
 	</ul>
-	<h3 class="text-muted">Cloud Monitor</h3>
+	<h3 class="text-muted">Device Monitor</h3>
 </div>
+
+<!--Top navigation bar collapse for small screen sizes -->
+<div class="navbar navbar-default visible-xs" role="navigation">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<span class="visible-xs navbar-brand">Device Monitor</span>
+	</div>
+	<div class="navbar-collapse collapse" id="navbar-collapse">
+		<ul class="nav navbar-nav">
+			<li><a ng-href="#/app">Apps</a></li>
+			<li><a ng-href="#/activity">Activity</a></li>
+			<li><a ng-href="#/map">Map</a></li>
+			<li><a ng-href="#/chat">Screenshot</a></li>
+			<li><a ng-href="#/">Logout</a></li>
+		</ul>
+	</div>
+</div>
+
+<!--Content -->
 
 <div class="row">
 
@@ -38,7 +65,6 @@
 					<span class="visible-xs navbar-brand">Devices</span>
 				</div>
 				<div class="navbar-collapse collapse sidebar-navbar-collapse">
-					<li class="active">Devices</li>
 					<ul class="nav navbar-nav" ng-repeat="device in deviceData">
 						<li class="active" ng-click="onDeviceClick($index)"><a nohref="nohref" style="cursor:pointer;">{{device}}</a></li>
 						<!-- <li><a href="#">Menu Item 2</a></li>-->
