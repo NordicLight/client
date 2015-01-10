@@ -41,17 +41,6 @@
 
 	<div class="col-sm-2">
 
-		<!--Device info -->
- 		<devicetitle>{{devicename}}</devicetitle>
- 		<br>
- 		<devicestatus>Status: <span ng-style="customStyle.style">{{onlinestatus}}</span></devicestatus>
- 		<br>
- 		<devicestatus>Type: {{devicetype}}</devicestatus>
- 		<br>
- 		<devicestatus>{{onlinetime}}</devicestatus>
- 		<br>
- 		<br>
-
  		<!--Device navigation bar -->
 		<div class="sidebar-nav">
 			<div class="navbar navbar-default" role="navigation">
@@ -65,12 +54,28 @@
 					<span class="visible-xs navbar-brand">Devices</span>
 				</div>
 				<div class="navbar-collapse collapse sidebar-navbar-collapse">
+					<span class="visible-sm">Devices</span>
+					<span class="visible-md">Devices</span>
+					<span class="visible-lg">Devices</span>
+					
 					<ul class="nav navbar-nav" ng-repeat="device in deviceData">
 						<li class="active" ng-click="onDeviceClick($index)"><a nohref="nohref" style="cursor:pointer;">{{device}}</a></li>
 					</ul>
 				</div><!--/.nav-collapse -->
 			</div>
 		</div>
+
+		<!--Device info -->
+ 		<devicetitle>{{devicename}}</devicetitle>
+ 		<br>
+ 		<devicestatus>Status: <span ng-style="customStyle.style">{{onlinestatus}}</span></devicestatus>
+ 		<br>
+ 		<devicestatus>Type: {{devicetype}}</devicestatus>
+ 		<br>
+ 		<devicestatus>{{onlinetime}}</devicestatus>
+ 		<br>
+ 		<br>
+
 	</div>
 
 	<div class="col-sm-10">
